@@ -4,7 +4,7 @@ function isDateBefore(dateString1, dateString2) {}
 
 function calcAvgScore(learnerProfile) {}
 
-function updateAvgScore(learnerProfile) {}
+function updateAvgScore(learnerProfile, avgScore) {}
 
 function calcTotalPointsDue(assignmentsDue) {}
 
