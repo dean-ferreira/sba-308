@@ -2,9 +2,9 @@ function validateID(courseInfoID, agCourseID) {}
 
 function isDateBefore(dateString1, dateString2) {}
 
-function calcAvgScore(leanerProfile) {}
+function calcAvgScore(learnerProfile) {}
 
-function updateAvgScore(leanerProfile) {}
+function updateAvgScore(learnerProfile) {}
 
 function calcTotalPointsDue(assignmentsDue) {}
 
