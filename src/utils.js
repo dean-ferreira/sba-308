@@ -1,14 +1,20 @@
 function validateID(courseInfoID, agCourseID) {}
 
-function validateSubmissionDate(submissionDateString, dueDateString) {}
+function isDateBefore(dateString1, dateString2) {}
 
 function calcAvgScore(leanerProfile) {}
 
 function updateAvgScore(leanerProfile) {}
 
+function calcTotalPointsDue(assignmentsDue) {}
+
+function calcTotalPointsEarned(assignmentsDue, learnerSubmissions) {}
+
 module.exports = {
     validateID,
-    validateSubmissionDate,
+    isDateBefore,
     calcAvgScore,
     updateAvgScore,
+    calcTotalPointsDue,
+    calcTotalPointsEarned,
 };
