@@ -42,7 +42,8 @@ function calcTotalPointsDue(assignmentsDue) {
 function calcTotalPointsEarned(assignmentsDue, learnerSubmissions) {
     let totalPointsEarned = 0;
     for (assignment of assignmentsDue) {
-        totalPointsEarned += learnerSubmissions[assignment.id].score;
+        const learnerSubmission = learnerSubmissions[assignment.id];
+        totalPointsEarned += learnerSubmission.score;
     }
     return totalPointsEarned;
 }

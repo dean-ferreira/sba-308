@@ -58,7 +58,7 @@ describe('calcAvgScore', () => {
                     points_possible: 500,
                 },
             },
-            learner_submissions: {
+            submissions: {
                 1: {
                     submitted_at: '2023-01-25',
                     score: 47,
