@@ -1,3 +1,11 @@
+const { populateLearnerProfiles } = require('./src/learnerProfile');
+const {
+    updateAvgScore,
+    calcAvgScore,
+    validateID,
+    getAssignmentsDue,
+} = require('./src/utils');
+
 // The provided course information.
 const CourseInfo = {
     id: 451,
@@ -76,24 +84,40 @@ const LearnerSubmissions = [
     },
 ];
 
-function getLearnerData(course, ag, submissions) {
-    // here, we would process this data to achieve the desired result.
-    const result = [
-        {
-            id: 125,
-            avg: 0.985, // (47 + 150) / (50 + 150)
-            1: 0.94, // 47 / 50
-            2: 1.0, // 150 / 150
-        },
-        {
-            id: 132,
-            avg: 0.82, // (39 + 125) / (50 + 150)
-            1: 0.78, // 39 / 50
-            2: 0.833, // late: (140 - 15) / 150
-        },
-    ];
+function populateLearnerData(learnerProfile) {
+    const learnerData = {
+        id: learnerProfile.profile_id,
+        avg: learnerProfile.avg_score,
+    };
+    const assignmentsDue = getAssignmentsDue(learnerProfile.assignments);
+    for (assignment of assignmentsDue) {
+        const grade =
+            learnerProfile.submissions[assignment.id].score /
+            assignment.points_possible;
+        learnerData[assignment.id] = Math.round(grade * 1000) / 1000;
+    }
+    return learnerData;
+}
 
-    return result;
+function getLearnerData(course, ag, submissions) {
+    const result = [];
+    try {
+        if (!validateID(course.id, ag.course_id)) {
+            throw new Error('Invalid ID - Mismatch');
+        }
+        const learnerProfiles = populateLearnerProfiles(submissions, ag);
+        for (profile_id in learnerProfiles) {
+            updateAvgScore(
+                learnerProfiles[profile_id],
+                calcAvgScore(learnerProfiles[profile_id])
+            );
+            result.push(populateLearnerData(learnerProfiles[profile_id]));
+        }
+    } catch (error) {
+        console.error(error.message);
+    } finally {
+        return result;
+    }
 }
 
 const result = getLearnerData(CourseInfo, AssignmentGroup, LearnerSubmissions);
