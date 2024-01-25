@@ -5,6 +5,8 @@ const {
     updateAvgScore,
     calcTotalPointsDue,
     calcTotalPointsEarned,
+    getAssignmentsDue,
+    getLearnerSubmissions,
 } = require('../src/utils');
 
 describe('validateID', () => {

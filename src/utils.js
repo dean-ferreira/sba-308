@@ -1,14 +1,51 @@
-function validateID(courseInfoID, agCourseID) {}
+function validateID(courseInfoID, agCourseID) {
+    return courseInfoID === agCourseID;
+}
 
-function isDateBefore(dateString1, dateString2) {}
+function isDateBefore(dateString1, dateString2) {
+    const date1 = new Date(dateString1);
+    const date2 = new Date(dateString2);
+    return date1 <= date2;
+}
 
-function calcAvgScore(learnerProfile) {}
+function calcAvgScore(learnerProfile) {
+    const assignmentsDue = getAssignmentsDue(learnerProfile.assignments);
+    const learnerSubmissions = getLearnerSubmissions(learnerProfile);
+    const totalPointsDue = calcTotalPointsDue(assignmentsDue);
+    if (totalPointsDue == 0) {
+        throw new RangeError(
+            'Check assignmentsDue - totalPointsPossible is equal to zero'
+        );
+    }
+    const totalPointsEarned = calcTotalPointsEarned(
+        assignmentsDue,
+        learnerSubmissions
+    );
+    const avgScore = totalPointsEarned / totalPointsDue;
+    const avgScoreRounded = Math.ceil(avgScore * 100) / 100;
+    return avgScoreRounded;
+}
 
-function updateAvgScore(learnerProfile, avgScore) {}
+function updateAvgScore(learnerProfile, avgScore) {
+    learnerProfile.avg_score = avgScore;
+}
 
-function calcTotalPointsDue(assignmentsDue) {}
+function calcTotalPointsDue(assignmentsDue) {
+    let totalPointsDue = 0;
+    for (const assignmentID in assignmentsDue) {
+        const assignment = assignmentsDue[assignmentID];
+        totalPointsDue += assignment.points_possible;
+    }
+    return totalPointsDue;
+}
 
-function calcTotalPointsEarned(assignmentsDue, learnerSubmissions) {}
+function calcTotalPointsEarned(assignmentsDue, learnerSubmissions) {
+    let totalPointsEarned = 0;
+    for (assignment of assignmentsDue) {
+        totalPointsEarned += learnerSubmissions[assignment.id].score;
+    }
+    return totalPointsEarned;
+}
 
 function getAssignmentsDue(assignments) {
     const assignmentsDue = [];
