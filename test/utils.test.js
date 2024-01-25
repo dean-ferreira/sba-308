@@ -1,6 +1,6 @@
 const {
     validateID,
-    isDateBefore,
+    isDateOnTime,
     calcAvgScore,
     updateAvgScore,
     calcTotalPointsDue,
@@ -21,15 +21,15 @@ describe('validateID', () => {
     });
 });
 
-describe('isDateBefore', () => {
-    test('Returns true if submissionDate is before dueDate', () => {
-        expect(isDateBefore('2023-01-25', '2023-02-27')).toEqual(true);
+describe('isDateOnTime', () => {
+    test('Returns true if date1 is before date2', () => {
+        expect(isDateOnTime('2023-01-25', '2023-02-27')).toEqual(true);
     });
-    test('Returns true if submissionDate is equal to dueDate', () => {
-        expect(isDateBefore('2023-01-25', '2023-01-25')).toEqual(true);
+    test('Returns true if date1 is equal to date2', () => {
+        expect(isDateOnTime('2023-01-25', '2023-01-25')).toEqual(true);
     });
-    test('Returns false if submissionDate is after dueDate', () => {
-        expect(isDateBefore('2023-02-27', '2023-01-25')).toEqual(false);
+    test('Returns false if date1 is after date2', () => {
+        expect(isDateOnTime('2023-02-27', '2023-01-25')).toEqual(false);
     });
 });
 
@@ -230,6 +230,40 @@ describe('calcTotalPointsEarned', () => {
                 }
             )
         ).toEqual(197);
+    });
+    test('Returns the students score with penalty', () => {
+        expect(
+            calcTotalPointsEarned(
+                [
+                    {
+                        id: 1,
+                        name: 'Declare a Variable',
+                        due_at: '2023-01-25',
+                        points_possible: 50,
+                    },
+                    {
+                        id: 2,
+                        name: 'Write a Function',
+                        due_at: '2023-02-27',
+                        points_possible: 150,
+                    },
+                ],
+                {
+                    1: {
+                        submitted_at: '2024-01-25',
+                        score: 47,
+                    },
+                    2: {
+                        submitted_at: '2024-02-12',
+                        score: 150,
+                    },
+                    3: {
+                        submitted_at: '2023-01-25',
+                        score: 400,
+                    },
+                }
+            )
+        ).toEqual(177);
     });
 });
 
