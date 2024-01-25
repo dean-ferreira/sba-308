@@ -59,7 +59,7 @@ function getAssignmentsDue(assignments) {
 }
 
 function getLearnerSubmissions(learnerProfile) {
-    return learnerProfile.learner_submissions;
+    return learnerProfile.submissions;
 }
 
 module.exports = {

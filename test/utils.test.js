@@ -298,7 +298,7 @@ describe('getAssignmentsDue', () => {
 });
 
 describe('getLearnerSubmissions', () => {
-    test('Returns ', () => {
+    test('Returns an object of submissions', () => {
         const learnerProfile = {
             profile_id: 125,
             avg_score: 0,
@@ -322,7 +322,7 @@ describe('getLearnerSubmissions', () => {
                     points_possible: 500,
                 },
             },
-            learner_submissions: {
+            submissions: {
                 1: {
                     submitted_at: '2023-01-25',
                     score: 47,
