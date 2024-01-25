@@ -73,7 +73,7 @@ describe('calcAvgScore', () => {
                 },
             },
         };
-        expect(calcAvgScore(learnerProfile1)).toEqual(0.99);
+        expect(calcAvgScore(learnerProfile1)).toEqual(0.985);
     });
     test('Throws RangeError when totalPointsPossible is 0 - no assignments are due', () => {
         const learnerProfile2 = {
@@ -167,8 +167,8 @@ describe('updateAvgScore', () => {
                 },
             },
         };
-        updateAvgScore(learnerProfile, 0.99);
-        expect(learnerProfile.avg_score).toEqual(0.99);
+        updateAvgScore(learnerProfile, 0.985);
+        expect(learnerProfile.avg_score).toEqual(0.985);
     });
 });
 

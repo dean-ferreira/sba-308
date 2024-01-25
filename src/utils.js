@@ -22,7 +22,7 @@ function calcAvgScore(learnerProfile) {
         learnerSubmissions
     );
     const avgScore = totalPointsEarned / totalPointsDue;
-    const avgScoreRounded = Math.ceil(avgScore * 100) / 100;
+    const avgScoreRounded = Math.round(avgScore * 1000) / 1000;
     return avgScoreRounded;
 }
 
